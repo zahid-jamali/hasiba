@@ -287,9 +287,18 @@ export interface ZakatCalculationResult {
  * whether nisab is reached, and zakat due (2.5%).
  */
 export function calculateZakat(
-  inputs: ZakatInputs,
-  metalRates: MetalRatesInput
+  inputs: ZakatInputs & { selectedCurrency?: SupportedCurrency },
+  metalRatesInput: MetalRatesInput | PricesApiResponse,
+  currency?: SupportedCurrency
 ): ZakatCalculationResult {
+  let metalRates: MetalRatesInput;
+  if ('fxRate' in metalRatesInput && typeof metalRatesInput.fxRate === 'number') {
+    metalRates = metalRatesInput;
+  } else {
+    const chosenCurr = currency || inputs.selectedCurrency || 'SAR';
+    metalRates = getRatesForCurrency(metalRatesInput as PricesApiResponse, chosenCurr);
+  }
+
   const metalPrices = calculateMetalPrices(metalRates);
   const nisabStandard: NisabStandard = inputs.nisabStandard === 'silver' ? 'silver' : 'gold';
 

@@ -165,7 +165,7 @@ export const SaudiGratuitySubPage: React.FC<SaudiGratuitySubPageProps> = ({ loca
         <h2 id="ksa-faq-title" className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-slate-100">
           {isAr ? 'الأسئلة الشائعة حول مكافأة نهاية الخدمة في السعودية' : 'Frequently Asked Questions (Saudi EOSB)'}
         </h2>
-        <FaqAccordion items={saudiFaqs} />
+        <FaqAccordion items={saudiFaqs.map((f) => ({ question: f.q, answer: f.a }))} />
       </section>
 
       {/* 6. Switcher Banner to UAE */}

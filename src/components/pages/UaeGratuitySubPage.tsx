@@ -165,7 +165,7 @@ export const UaeGratuitySubPage: React.FC<UaeGratuitySubPageProps> = ({ locale }
         <h2 id="uae-faq-title" className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-slate-100">
           {isAr ? 'الأسئلة الشائعة حول مكافأة نهاية الخدمة في الإمارات' : 'Frequently Asked Questions (UAE EOSG)'}
         </h2>
-        <FaqAccordion items={uaeFaqs} />
+        <FaqAccordion items={uaeFaqs.map((f) => ({ question: f.q, answer: f.a }))} />
       </section>
 
       {/* 6. Switcher Banner to Saudi */}
