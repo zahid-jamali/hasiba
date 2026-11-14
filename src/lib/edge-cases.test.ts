@@ -8,10 +8,10 @@
  */
 
 import { describe, it, expect } from 'vitest';
-import { parseLocalizedNumber, toWesternDigits } from './digits';
+import { parseLocalizedNumber } from './digits';
 import { calculateAge } from './age';
-import { hijriToGregorian, gregorianToHijri, HijriRangeError, InvalidHijriDateError } from './hijri';
-import { calculateGoldPrices, calculateMyGoldValue } from './gold';
+import { hijriToGregorian, HijriRangeError, InvalidHijriDateError } from './hijri';
+import { calculateMyGoldValue } from './gold';
 import { calculateZakat } from './zakat';
 import { calculateUaeGratuity } from './gratuity-uae';
 import { calculateSaudiGratuity } from './gratuity-ksa';

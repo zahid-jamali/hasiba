@@ -3,7 +3,7 @@
 import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
 import { Locale } from '@/i18n/types';
-import { siteConfig, ToolConfig } from '@/config/site';
+import { siteConfig } from '@/config/site';
 import { DigitsPreferenceToggle } from '@/components/ui/DigitsPreferenceToggle';
 
 interface HomeToolSearchProps {
