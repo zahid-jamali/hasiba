@@ -1,0 +1,39 @@
+name: Update Gold Prices & Daily Rebuild
+
+on:
+  schedule:
+    # Run every 6 hours
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-prices:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run price update script
+        env:
+          GOLD_API_KEY: ${{ secrets.GOLD_API_KEY }}
+        run: node scripts/update-prices.mjs
+
+      - name: Commit and push if prices updated
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add public/data/prices.json public/data/prices-history.json
+          if git diff --staged --quiet; then
+            echo "No price changes to commit."
+          else
+            git commit -m "chore(data): auto-update gold spot prices & exchange rates [skip ci]"
+            git push
+          fi
