@@ -1,0 +1,32 @@
+name: Submit URLs to Bing IndexNow
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/**'
+      - 'public/**'
+      - 'scripts/**'
+  schedule:
+    # Daily run at midnight UTC
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  indexnow:
+    name: IndexNow Auto-Indexing (Bing & Yandex)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Submit to IndexNow
+        env:
+          INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY || '7e52a986aa4b59606d1f8048fab426ec' }}
+        run: node scripts/submit-indexnow.mjs

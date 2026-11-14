@@ -37,3 +37,7 @@ jobs:
             git commit -m "chore(data): auto-update gold spot prices & exchange rates [skip ci]"
             git push
           fi
+
+      - name: Notify Bing IndexNow of daily updates
+        run: node scripts/submit-indexnow.mjs https://hasiba.zetawala.com/gold-price/ https://hasiba.zetawala.com/en/gold-price/ https://hasiba.zetawala.com/hijri-date-today/ https://hasiba.zetawala.com/en/hijri-date-today/
+

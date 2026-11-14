@@ -42,7 +42,7 @@ npm run dev
 
 ### Verification & Quality Gates
 ```bash
-# Run all Vitest unit tests (85+ tests)
+# Run all Vitest unit tests (98 tests)
 npm test
 
 # Run ESLint validation
@@ -56,6 +56,9 @@ node scripts/check-links.mjs
 
 # Validate JSON-LD structured data schemas
 node scripts/validate-jsonld.mjs
+
+# Automatically submit all URLs to Microsoft Bing via IndexNow
+npm run indexnow
 ```
 
 ---
@@ -89,6 +92,15 @@ Set these under **Pages > Project > Settings > Environment Variables**:
 - **`GOLD_API_KEY`** *(GitHub Secret)*:  
   API key from [GoldAPI.io](https://www.goldapi.io). Used by `scripts/update-prices.mjs` to fetch international spot prices (XAU/XAG).  
   *Never commit or expose this key to client-side code.*
+
+### Microsoft Bing IndexNow Automation (`.github/workflows/indexnow.yml`)
+- **IndexNow API Key:** `7e52a986aa4b59606d1f8048fab426ec`
+- **Key Verification URL:** `https://hasiba.zetawala.com/7e52a986aa4b59606d1f8048fab426ec.txt`
+- **Submission Command:** `npm run indexnow`
+- **Supported Engines:** Microsoft Bing, Yandex, Naver, Seznam.
+- **Workflow:** Runs automatically on every push to `main` and daily at midnight UTC to keep search engine indexes fresh.
+- **`INDEXNOW_KEY`** *(GitHub Secret / Environment Variable, optional)*:  
+  Override the default key with your custom key from Bing Webmaster Tools if preferred.
 
 ### Client-Side Environment Variables (`.env.local`)
 ```env

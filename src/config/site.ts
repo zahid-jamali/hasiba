@@ -32,6 +32,7 @@ export interface SiteConfig {
   baseUrl: string;
   logo: string;
   adsenseId: string;
+  indexNowKey: string;
   parent: {
     name: {
       ar: string;
@@ -69,6 +70,7 @@ export const siteConfig: SiteConfig = {
   baseUrl: 'https://hasiba.zetawala.com',
   logo: '/images/hasiba-logo.png',
   adsenseId: process.env.NEXT_PUBLIC_ADSENSE_ID || '',
+  indexNowKey: '7e52a986aa4b59606d1f8048fab426ec',
   parent: {
     name: {
       ar: 'زيتاوالا',
