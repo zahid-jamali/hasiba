@@ -72,10 +72,10 @@ export const ResultBox: React.FC<ResultBoxProps> = ({
   return (
     <div
       aria-live="polite"
-      className={`rounded-2xl border-2 border-emerald-500/40 bg-gradient-to-b from-emerald-50/70 to-white dark:from-emerald-950/20 dark:to-slate-900 p-6 sm:p-8 shadow-sm ${className}`}
+      className={`rounded-2xl border-2 border-brand-700/30 dark:border-brand-600/40 bg-gradient-to-b from-brand-50/50 via-white to-surface-50 dark:from-[#0c1c15] dark:via-[#091711] dark:to-[#06140e] p-6 sm:p-8 shadow-sm ${className}`}
     >
       {title && (
-        <p className="text-sm font-semibold uppercase tracking-wider text-emerald-800 dark:text-emerald-400 mb-2">
+        <p className="text-xs sm:text-sm font-bold uppercase tracking-wider text-brand-800 dark:text-emerald-300 mb-2">
           {title}
         </p>
       )}
@@ -86,7 +86,7 @@ export const ResultBox: React.FC<ResultBoxProps> = ({
           {formattedPrimary}
         </span>
         {unit && (
-          <span className="text-xl sm:text-2xl font-bold text-emerald-700 dark:text-emerald-400">
+          <span className="text-xl sm:text-2xl font-bold text-brand-800 dark:text-emerald-300">
             {unit}
           </span>
         )}
@@ -94,11 +94,11 @@ export const ResultBox: React.FC<ResultBoxProps> = ({
 
       {/* Breakdown / Secondary items */}
       {items.length > 0 && (
-        <div className="mt-5 pt-4 border-t border-emerald-100 dark:border-emerald-900/40 grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+        <div className="mt-5 pt-4 border-t border-brand-100 dark:border-brand-900/40 grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
           {items.map((item, idx) => (
             <div
               key={idx}
-              className="flex items-center justify-between p-2.5 rounded-lg bg-white/80 dark:bg-slate-800/60 border border-emerald-100 dark:border-emerald-900/30"
+              className="flex items-center justify-between p-2.5 rounded-xl bg-white/90 dark:bg-[#14261e]/90 border border-surface-200 dark:border-surface-800 shadow-2xs"
             >
               <span className="text-slate-600 dark:text-slate-400 font-medium">
                 {item.label}
@@ -118,12 +118,12 @@ export const ResultBox: React.FC<ResultBoxProps> = ({
       )}
 
       {/* Action Buttons: Copy & WhatsApp Share */}
-      <div className="mt-6 pt-4 border-t border-emerald-200/60 dark:border-emerald-900/40 flex flex-wrap gap-3">
+      <div className="mt-6 pt-4 border-t border-brand-100 dark:border-brand-900/40 flex flex-wrap gap-3">
         <Button
           variant={copied ? 'success' : 'outline'}
           size="md"
           onClick={copyTextToClipboard}
-          className="flex-1 min-w-[140px]"
+          className="flex-1 min-w-[140px] font-bold"
         >
           {copied ? `✓ ${t.ui.copied}` : `📋 ${t.ui.copy}`}
         </Button>
@@ -132,7 +132,7 @@ export const ResultBox: React.FC<ResultBoxProps> = ({
           variant="primary"
           size="md"
           onClick={handleWhatsAppShare}
-          className="flex-1 min-w-[140px] bg-emerald-600 hover:bg-emerald-700 text-white"
+          className="flex-1 min-w-[140px] bg-[#25D366] hover:bg-[#20ba5a] text-white font-bold"
         >
           <span>💬 {t.ui.shareWhatsApp}</span>
         </Button>

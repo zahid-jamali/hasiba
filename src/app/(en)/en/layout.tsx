@@ -31,7 +31,7 @@ export default function EnglishRootLayout({
 }) {
   return (
     <html lang="en" dir="ltr" className={inter.variable}>
-      <body className="antialiased font-sans min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors">
+      <body className="antialiased font-sans min-h-screen flex flex-col bg-[#fafaf7] dark:bg-[#07150f] text-slate-900 dark:text-slate-100 transition-colors">
         <SiteJsonLd locale="en" />
         <DigitsProvider locale="en">
           <Header locale="en" />

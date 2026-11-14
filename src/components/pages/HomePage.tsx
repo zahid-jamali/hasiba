@@ -1,14 +1,13 @@
 import React from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import fs from 'node:fs';
 import path from 'node:path';
 import { Locale } from '@/i18n/types';
 import { getDictionary } from '@/i18n';
 import { siteConfig, ToolConfig } from '@/config/site';
 import { AdSlot } from '@/components/ui/AdSlot';
-import { DigitsPreferenceToggle } from '@/components/ui/DigitsPreferenceToggle';
 import { FaqAccordion, FaqItem } from '@/components/ui/FaqAccordion';
+import { HomeToolSearch } from '@/components/home/HomeToolSearch';
 import {
   gregorianToHijri,
   getHijriMonthName,
@@ -54,7 +53,7 @@ function renderToolIcon(slug: string) {
   switch (slug) {
     case 'hijri-date-today':
       return (
-        <svg className="w-6 h-6 text-brand-600 dark:text-brand-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <svg className="w-6 h-6 text-brand-800 dark:text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
           <line x1="16" y1="2" x2="16" y2="6" />
           <line x1="8" y1="2" x2="8" y2="6" />
@@ -64,7 +63,7 @@ function renderToolIcon(slug: string) {
       );
     case 'hijri-converter':
       return (
-        <svg className="w-6 h-6 text-brand-600 dark:text-brand-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <svg className="w-6 h-6 text-brand-800 dark:text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
           <path d="M3 3v5h5" />
           <path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16" />
@@ -73,14 +72,14 @@ function renderToolIcon(slug: string) {
       );
     case 'age-calculator':
       return (
-        <svg className="w-6 h-6 text-brand-600 dark:text-brand-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <svg className="w-6 h-6 text-gold-600 dark:text-gold-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <circle cx="12" cy="12" r="10" />
           <polyline points="12 6 12 12 16 14" />
         </svg>
       );
     case 'gold-price':
       return (
-        <svg className="w-6 h-6 text-amber-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <svg className="w-6 h-6 text-gold-600 dark:text-gold-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <path d="M6 3h12l4 6-10 12L2 9z" />
           <path d="M2 9h20" />
           <path d="M12 21 8.5 9 10 3" />
@@ -89,7 +88,7 @@ function renderToolIcon(slug: string) {
       );
     case 'zakat-calculator':
       return (
-        <svg className="w-6 h-6 text-emerald-600 dark:text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <svg className="w-6 h-6 text-brand-800 dark:text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z" />
           <path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z" />
           <path d="M7 21h10" />
@@ -99,20 +98,20 @@ function renderToolIcon(slug: string) {
       );
     case 'end-of-service':
       return (
-        <svg className="w-6 h-6 text-blue-600 dark:text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <svg className="w-6 h-6 text-brand-800 dark:text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
           <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
         </svg>
       );
     case 'pregnancy-calculator':
       return (
-        <svg className="w-6 h-6 text-rose-500 dark:text-rose-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <svg className="w-6 h-6 text-rose-600 dark:text-rose-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
         </svg>
       );
     default:
       return (
-        <svg className="w-6 h-6 text-brand-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <svg className="w-6 h-6 text-brand-800" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <rect x="4" y="4" width="16" height="16" rx="2" />
           <line x1="9" y1="9" x2="15" y2="15" />
           <line x1="15" y1="9" x2="9" y2="15" />
@@ -124,6 +123,7 @@ function renderToolIcon(slug: string) {
 export const HomePage: React.FC<HomePageProps> = ({ locale }) => {
   const t = getDictionary(locale);
   const now = new Date();
+  const isAr = locale === 'ar';
 
   // 1. Calculate live today Hijri date
   const hijriToday = gregorianToHijri(now);
@@ -131,7 +131,7 @@ export const HomePage: React.FC<HomePageProps> = ({ locale }) => {
   const weekdayName = getWeekdayName(hijriToday.weekday, locale);
   const gregorianDay = now.getUTCDate();
   const gregorianMonthName =
-    locale === 'ar'
+    isAr
       ? GREGORIAN_MONTH_NAMES_AR[now.getUTCMonth()]
       : GREGORIAN_MONTH_NAMES_EN[now.getUTCMonth()];
   const gregorianYear = now.getUTCFullYear();
@@ -156,115 +156,121 @@ export const HomePage: React.FC<HomePageProps> = ({ locale }) => {
     health: siteConfig.tools.filter((t) => t.category === 'health'),
   };
 
-  // 5 FAQ items
-  const faqItems: FaqItem[] =
-    locale === 'ar'
-      ? [
-          {
-            question: 'هل موقع حاسبة مجاني بنسبة 100%؟',
-            answer:
-              'نعم، جميع الأدوات والحاسبات في حاسبة مجانية بالكامل ومتاحة لجميع الزوار دون الحاجة إلى إنشاء حساب أو تسجيل دخول أو دفع أي رسوم اشتراك، ونعتمد على الإعلانات غير المزعجة لتغطية تكاليف التشغيل.',
-          },
-          {
-            question: 'ما مدى دقة الحسابات والنتائج المقدمة؟',
-            answer:
-              'تمت مراجعة وبرمجة كافة المعادلات الرياضية بدقة متناهية وفقاً للمصادر واللوائح الرسمية؛ كأنظمة العمل الصادرة عن وزارة الموارد البشرية والتنمية الاجتماعية السعودية وقانون العمل الاتحادي الإماراتي، وأحكام الفقه الإسلامي المعتمدة لحساب أنصبة الزكاة، والمعايير السريرية العالمية للكلية الأمريكية لأطباء النساء والتوليد (ACOG) ومنظمة الصحة العالمية.',
-          },
-          {
-            question: 'أي تقويم هجري يعتمده الموقع؟',
-            answer:
-              'يعتمد موقع حاسبة تقويم أم القرى الرسمي المعتمد في المملكة العربية السعودية، والمبني على حسابات فلكية ومعايير دولية دقيقة متطابقة مع الحسابات الشرعية المعتمدة في دول مجلس التعاون الخليجي.',
-          },
-          {
-            question: 'هل يحفظ موقع حاسبة بياناتي المالية أو تاريخ ميلادي؟',
-            answer:
-              'إطلاقاً. تتم جميع العمليات الحسابية بنسبة 100% داخل متصفحك المحلي (Client-side execution)، ولا يتم إرسال أي تاريخ ميلاد أو أرقام رواتب أو مدخرات مالية إلى خوادمنا على الإطلاق، حفاظاً على أقصى درجات الخصوصية والأمان التام لبياناتك الشخصية.',
-          },
-          {
-            question: 'من يقف وراء موقع حاسبة؟',
-            answer:
-              'موقع حاسبة هو أحد المشاريع الرقمية التابعة لشبكة زيتاوالا (Zetawala Network)، المتخصصة في بناء أدوات رقمية مجانية وموثوقة وعالية السرعة لخدمة المستخدم العربي والمقيمين في منطقة الخليج العربي والشرق الأوسط.',
-          },
-        ]
-      : [
-          {
-            question: 'Is Hasiba 100% free to use?',
-            answer:
-              'Yes, every single calculator and tool on Hasiba is completely free with zero hidden fees. There is never any need to register, create an account, or pay subscription costs.',
-          },
-          {
-            question: 'How accurate are the calculators and formulas?',
-            answer:
-              'All calculation formulas are audited against official regulatory sources, including UAE Federal Decree-Law No. 33 of 2021, the Saudi Labor Law (Articles 84, 85, 87), classical Islamic Fiqh standards and ZATCA guidelines for Zakat Nisab, and ACOG/WHO clinical protocols for obstetrics.',
-          },
-          {
-            question: 'Which calendar standard is used for Hijri dates?',
-            answer:
-              'Hasiba uses the official Saudi Umm al-Qura calendar standard (via Intl.DateTimeFormat with en-u-ca-islamic-umalqura), ensuring precision and consistency with GCC civil and religious dates.',
-          },
-          {
-            question: 'Does Hasiba store personal financial or birth data?',
-            answer:
-              'No. All calculations are executed 100% locally in your client web browser. No birthdates, salary amounts, or financial inputs are ever transmitted to or stored on remote servers.',
-          },
-          {
-            question: 'Who runs and maintains Hasiba?',
-            answer:
-              'Hasiba is engineered and maintained as part of the Zetawala network of free digital utilities, dedicated to offering fast, private, and localized digital tools for the Arab world and Gulf region.',
-          },
-        ];
+  // 5 Practical Site FAQs
+  const faqItems: FaqItem[] = isAr
+    ? [
+        {
+          question: 'هل موقع حاسبة مجاني بالكامل؟',
+          answer:
+            'نعم، جميع الأدوات والحاسبات في منصة حاسبة مجانية تماماً ومتاحة للجميع دون أي تسجيل دخول أو اشتراك، ونعتمد على إعلانات غير متداخلة لدعم التكاليف التقنية للمنصة.',
+        },
+        {
+          question: 'ما مدى دقة الحسابات والنتائج المقدمة؟',
+          answer:
+            'تعتمد حاسبة على مراجع تشريعية ورسمية معتمدة؛ كنظام العمل السعودي (المواد 84 و85 و87)، وقانون العمل الاتحادي الإماراتي لعام 2021، وتقويم أم القرى الرسمي في المملكة العربية السعودية، وأحكام الفقه الإسلامي المعتمدة لأنصبة الزكاة، والمعايير الطبية السريرية العالمية لمنظمة الصحة العالمية (WHO).',
+        },
+        {
+          question: 'هل يتم حفظ أو تسجيل بياناتي الشخصية أو المالية؟',
+          answer:
+            'إطلاقاً. تُنفذ كافة العمليات الحسابية بنسبة 100% داخل متصفحك المحلي (Client-side execution). لا يتم إرسال أو تخزين أي تواريخ ميلاد أو رواتب أو مبالغ مدخرات إلى أي خادم، مما يضمن أقصى معايير الأمان والخصوصية.',
+        },
+        {
+          question: 'كيف يتم تحديث أسعار الذهب والعملات؟',
+          answer:
+            'يتم تحديث أسعار الذهب والفضة دورياً عبر ربط مباشر مع مؤشرات البورصة العالمية اللحظية (Spot Price)، مع تطبيق أسعار صرف العملات الرسمية لكل دولة لحساب أسعار الجرام بمختلف العيارات بدقة متناهية.',
+        },
+        {
+          question: 'من يقف خلف منصة حاسبة؟',
+          answer:
+            'حاسبة هي منصة متخصصة ومستقلة في عالم الأدوات الحسابية اليومية، طُوّرت بدقة واهتمام لخدمة المستخدمين في العالم العربي والمقيمين في دول الخليج كإحدى مبادرات شبكة زيتاوالا للأدوات المجانية.',
+        },
+      ]
+    : [
+        {
+          question: 'Is Hasiba 100% free to use?',
+          answer:
+            'Yes, every calculator and tool on Hasiba is completely free with zero hidden fees. There is never any need to register, create an account, or pay subscription costs.',
+        },
+        {
+          question: 'How accurate are the calculators and formulas?',
+          answer:
+            'All calculation formulas are audited against official regulatory sources, including UAE Federal Decree-Law No. 33 of 2021, the Saudi Labor Law (Articles 84, 85, 87), classical Islamic Fiqh standards and ZATCA guidelines for Zakat Nisab, and ACOG/WHO clinical protocols for obstetrics.',
+        },
+        {
+          question: 'Does Hasiba store personal financial or birth data?',
+          answer:
+            'No. All calculations are executed 100% locally in your client web browser. No birthdates, salary amounts, or financial inputs are ever transmitted to or stored on remote servers.',
+        },
+        {
+          question: 'How frequently are gold prices and currencies updated?',
+          answer:
+            'Gold and silver spot rates are synchronized on a regular cadence from international bullion markets, with local GCC and regional currency conversions applied directly per gram.',
+        },
+        {
+          question: 'Who maintains Hasiba?',
+          answer:
+            'Hasiba is an independent specialized calculator portal developed for users across the Arab world and Gulf region, created as part of the Zetawala network of free utilities.',
+        },
+      ];
 
   return (
-    <div className="py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full space-y-12">
-      {/* Hero section */}
-      <header className="text-center max-w-3xl mx-auto pt-2 pb-2 space-y-4">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-50 dark:bg-brand-950/60 border border-brand-200 dark:border-brand-800 text-xs font-bold text-brand-800 dark:text-brand-300">
-          <span>{siteConfig.parent.badgeText[locale]}</span>
+    <div className="py-6 sm:py-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full space-y-12 sm:space-y-16">
+      {/* 1. Humanized Hero Section with Live Search */}
+      <header className="text-center max-w-3xl mx-auto pt-2 space-y-4 sm:space-y-5">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-brand-50 dark:bg-brand-950/60 border border-brand-200/80 dark:border-brand-900/60 text-xs font-bold text-brand-900 dark:text-emerald-300">
+          <span className="w-2 h-2 rounded-full bg-gold-500 animate-pulse"></span>
+          <span>{isAr ? 'منصة الحسابات اليومية المعتمدة للعالم العربي والخليج' : 'Trusted Daily Utilities for the Arab World & GCC'}</span>
         </div>
 
-        <h1 className="text-3xl sm:text-5xl font-black text-slate-950 dark:text-white tracking-tight leading-tight">
-          {locale === 'ar'
-            ? 'حاسبة – أدوات حساب مجانية بالعربية'
-            : 'Hasiba – Free Arabic & Gulf Calculators'}
+        <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-slate-950 dark:text-white tracking-tight leading-[1.15]">
+          {isAr ? (
+            <>
+              حاسبتك الذكية.. <span className="text-brand-800 dark:text-emerald-400">دقة فورية</span> لكل يوم
+            </>
+          ) : (
+            <>
+              Your Smart Calculator, <span className="text-brand-800 dark:text-emerald-400">Instant Precision</span>
+            </>
+          )}
         </h1>
 
         <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed max-w-2xl mx-auto">
-          {locale === 'ar'
-            ? 'مجموعة متكاملة من الحاسبات الدقيقة والذكية للعالم العربي ودول الخليج: التاريخ الهجري، أسعار الذهب، مكافأة نهاية الخدمة، الزكاة، وحساب العمر بدقة وسرعة وبلا تسجيل.'
-            : 'A comprehensive suite of accurate, fast online calculators for the Arab world and GCC: Hijri calendar, live gold prices, end of service gratuity, Zakat, age, and pregnancy with zero signup.'}
+          {isAr
+            ? 'مجموعة متكاملة من الحاسبات الدقيقة المعتمدة وفق الأنظمة الرسمية والمعايير الفلكية: التاريخ الهجري، أسعار الذهب، مكافأة نهاية الخدمة، الزكاة، وحساب العمر بخصوصية تامة 100% داخل جهازك وبلا تسجيل.'
+            : 'Audited, ultra-fast online calculators built around GCC labor regulations and calendar standards: Hijri calendar, live gold rates, end-of-service gratuity, Zakat, and age with zero registration.'}
         </p>
 
-        {/* Digits Toggle for Arabic users */}
-        <div className="pt-2 flex justify-center">
-          <DigitsPreferenceToggle locale={locale} />
+        {/* Interactive Search Bar & Filters */}
+        <div className="pt-2 sm:pt-4">
+          <HomeToolSearch locale={locale} />
         </div>
       </header>
 
-      {/* Live Featured Widgets: Hijri Date & 21K Gold Prices */}
+      {/* 2. Today's Daily Pulse (Featured Live Data Hub) */}
       <section
-        aria-label={locale === 'ar' ? 'بيانات حية ومباشرة' : 'Live Daily Data'}
-        className="grid grid-cols-1 md:grid-cols-2 gap-5"
+        aria-label={isAr ? 'بيانات حية ومباشرة لليوم' : 'Live Daily Data Hub'}
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
       >
-        {/* Widget 1: Today's Hijri Date */}
-        <div className="rounded-2xl border border-brand-200 dark:border-brand-900/60 bg-gradient-to-br from-white to-brand-50/40 dark:from-slate-900 dark:to-brand-950/20 p-6 shadow-sm flex flex-col justify-between">
+        {/* Card 1: Today's Hijri Date */}
+        <div className="rounded-2xl border-2 border-brand-100 dark:border-brand-950/80 bg-gradient-to-br from-white via-surface-50 to-brand-50/30 dark:from-[#0c1c15] dark:via-[#091711] dark:to-[#06140e] p-6 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between mb-3">
-              <span className="inline-flex items-center gap-1.5 text-xs font-bold px-2.5 py-1 rounded-full bg-brand-100 text-brand-800 dark:bg-brand-900/60 dark:text-brand-200">
+              <span className="inline-flex items-center gap-1.5 text-xs font-bold px-2.5 py-1 rounded-full bg-brand-100/70 text-brand-900 dark:bg-emerald-950/80 dark:text-emerald-200">
                 <span className="w-2 h-2 rounded-full bg-brand-600 animate-pulse"></span>
-                {locale === 'ar' ? 'التاريخ الهجري اليوم' : 'Hijri Date Today'}
+                {isAr ? 'التاريخ الهجري اليوم' : 'Hijri Date Today'}
               </span>
-              <span className="text-xs text-slate-500 dark:text-slate-400">
-                {locale === 'ar' ? 'تقويم أم القرى' : 'Umm al-Qura Standard'}
+              <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400">
+                {isAr ? 'تقويم أم القرى' : 'Umm al-Qura'}
               </span>
             </div>
 
-            <div className="space-y-1 my-3">
+            <div className="space-y-1.5 my-3">
               <div className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white">
-                {weekdayName}، {hijriToday.day} {hijriMonthName} {hijriToday.year} {locale === 'ar' ? 'هـ' : 'AH'}
+                {weekdayName}، {hijriToday.day} {hijriMonthName} {hijriToday.year} {isAr ? 'هـ' : 'AH'}
               </div>
-              <div className="text-sm text-slate-500 dark:text-slate-400 font-medium">
-                {locale === 'ar' ? 'الموافق ميلادياً:' : 'Gregorian equivalent:'}{' '}
-                <span className="font-semibold text-slate-700 dark:text-slate-300">
+              <div className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 font-medium">
+                {isAr ? 'الموافق ميلادياً:' : 'Gregorian equivalent:'}{' '}
+                <span className="font-bold text-slate-900 dark:text-slate-200">
                   {gregorianDay} {gregorianMonthName} {gregorianYear}
                 </span>
               </div>
@@ -273,66 +279,66 @@ export const HomePage: React.FC<HomePageProps> = ({ locale }) => {
 
           <Link
             href={getToolUrl('hijri-date-today')}
-            className="mt-4 inline-flex items-center justify-between px-4 py-2.5 rounded-xl text-sm font-bold bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-brand-700 dark:text-brand-300 hover:bg-brand-50 dark:hover:bg-slate-700/60 transition-colors min-h-[44px]"
+            className="mt-4 inline-flex items-center justify-between px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-white dark:bg-[#14261e] border border-surface-200 dark:border-surface-800 text-brand-800 dark:text-emerald-300 hover:bg-brand-50 dark:hover:bg-brand-950 transition-colors min-h-[44px]"
           >
-            <span>{locale === 'ar' ? 'عرض التقويم الهجري والمناسبات الإسلامية' : 'View Full Hijri Calendar & Events'}</span>
-            <span aria-hidden="true">{locale === 'ar' ? '←' : '→'}</span>
+            <span>{isAr ? 'عرض التقويم الهجري والمناسبات' : 'View Full Hijri Calendar'}</span>
+            <span aria-hidden="true">{isAr ? '←' : '→'}</span>
           </Link>
         </div>
 
-        {/* Widget 2: Today's 21K Gold Prices */}
-        <div className="rounded-2xl border border-amber-200 dark:border-amber-900/50 bg-gradient-to-br from-white to-amber-50/40 dark:from-slate-900 dark:to-amber-950/20 p-6 shadow-sm flex flex-col justify-between">
+        {/* Card 2: Today's 21K Gold Prices */}
+        <div className="rounded-2xl border-2 border-gold-200/80 dark:border-gold-950/80 bg-gradient-to-br from-white via-surface-50 to-gold-50/30 dark:from-[#0c1c15] dark:via-[#091711] dark:to-[#06140e] p-6 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between mb-3">
-              <span className="inline-flex items-center gap-1.5 text-xs font-bold px-2.5 py-1 rounded-full bg-amber-100 text-amber-900 dark:bg-amber-950 dark:text-amber-200">
-                <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
-                {locale === 'ar' ? 'سعر الذهب عيار 21 اليوم' : "Today's 21K Gold Prices"}
+              <span className="inline-flex items-center gap-1.5 text-xs font-bold px-2.5 py-1 rounded-full bg-gold-100 text-gold-900 dark:bg-gold-950 dark:text-gold-200">
+                <span className="w-2 h-2 rounded-full bg-gold-500 animate-pulse"></span>
+                {isAr ? 'سعر الذهب عيار 21 اليوم' : "Live 21K Gold Rates"}
               </span>
-              <span className="text-xs text-slate-500 dark:text-slate-400">
-                {locale === 'ar' ? 'تحديث دوري' : 'Live Spot Index'}
+              <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400">
+                {isAr ? 'مؤشر لحظي' : 'Spot Index'}
               </span>
             </div>
 
             <div className="grid grid-cols-3 gap-2 my-3">
               {/* Saudi Arabia */}
-              <div className="bg-white/80 dark:bg-slate-800/80 p-2.5 rounded-xl border border-slate-200/80 dark:border-slate-700 text-center">
-                <div className="text-xs text-slate-500 dark:text-slate-400 mb-1 flex items-center justify-center gap-1">
+              <div className="bg-white/90 dark:bg-[#14261e] p-2 rounded-xl border border-surface-200 dark:border-surface-800 text-center">
+                <div className="text-[11px] text-slate-500 dark:text-slate-400 mb-0.5 flex items-center justify-center gap-1">
                   <span>🇸🇦</span>
-                  <span className="truncate">{locale === 'ar' ? 'السعودية' : 'Saudi'}</span>
+                  <span className="truncate">{isAr ? 'السعودية' : 'KSA'}</span>
                 </div>
                 <div className="text-base sm:text-lg font-black text-slate-900 dark:text-white">
-                  {saudiPrices['21K'].toLocaleString(locale === 'ar' ? 'ar-SA' : 'en-US')}
+                  {saudiPrices['21K'].toLocaleString(isAr ? 'ar-SA' : 'en-US')}
                 </div>
-                <div className="text-[11px] text-slate-500 font-medium">
-                  {locale === 'ar' ? 'ر.س' : 'SAR'}
+                <div className="text-[10px] text-slate-500 font-semibold">
+                  {isAr ? 'ر.س' : 'SAR'}
                 </div>
               </div>
 
               {/* UAE */}
-              <div className="bg-white/80 dark:bg-slate-800/80 p-2.5 rounded-xl border border-slate-200/80 dark:border-slate-700 text-center">
-                <div className="text-xs text-slate-500 dark:text-slate-400 mb-1 flex items-center justify-center gap-1">
+              <div className="bg-white/90 dark:bg-[#14261e] p-2 rounded-xl border border-surface-200 dark:border-surface-800 text-center">
+                <div className="text-[11px] text-slate-500 dark:text-slate-400 mb-0.5 flex items-center justify-center gap-1">
                   <span>🇦🇪</span>
-                  <span className="truncate">{locale === 'ar' ? 'الإمارات' : 'UAE'}</span>
+                  <span className="truncate">{isAr ? 'الإمارات' : 'UAE'}</span>
                 </div>
                 <div className="text-base sm:text-lg font-black text-slate-900 dark:text-white">
-                  {uaePrices['21K'].toLocaleString(locale === 'ar' ? 'ar-AE' : 'en-US')}
+                  {uaePrices['21K'].toLocaleString(isAr ? 'ar-AE' : 'en-US')}
                 </div>
-                <div className="text-[11px] text-slate-500 font-medium">
-                  {locale === 'ar' ? 'د.إ' : 'AED'}
+                <div className="text-[10px] text-slate-500 font-semibold">
+                  {isAr ? 'د.إ' : 'AED'}
                 </div>
               </div>
 
               {/* Egypt */}
-              <div className="bg-white/80 dark:bg-slate-800/80 p-2.5 rounded-xl border border-slate-200/80 dark:border-slate-700 text-center">
-                <div className="text-xs text-slate-500 dark:text-slate-400 mb-1 flex items-center justify-center gap-1">
+              <div className="bg-white/90 dark:bg-[#14261e] p-2 rounded-xl border border-surface-200 dark:border-surface-800 text-center">
+                <div className="text-[11px] text-slate-500 dark:text-slate-400 mb-0.5 flex items-center justify-center gap-1">
                   <span>🇪🇬</span>
-                  <span className="truncate">{locale === 'ar' ? 'مصر' : 'Egypt'}</span>
+                  <span className="truncate">{isAr ? 'مصر' : 'EGY'}</span>
                 </div>
                 <div className="text-base sm:text-lg font-black text-slate-900 dark:text-white truncate">
-                  {egyptPrices['21K'].toLocaleString(locale === 'ar' ? 'ar-EG' : 'en-US')}
+                  {egyptPrices['21K'].toLocaleString(isAr ? 'ar-EG' : 'en-US')}
                 </div>
-                <div className="text-[11px] text-slate-500 font-medium">
-                  {locale === 'ar' ? 'ج.م' : 'EGP'}
+                <div className="text-[10px] text-slate-500 font-semibold">
+                  {isAr ? 'ج.م' : 'EGP'}
                 </div>
               </div>
             </div>
@@ -340,32 +346,96 @@ export const HomePage: React.FC<HomePageProps> = ({ locale }) => {
 
           <Link
             href={getToolUrl('gold-price')}
-            className="mt-4 inline-flex items-center justify-between px-4 py-2.5 rounded-xl text-sm font-bold bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-amber-700 dark:text-amber-300 hover:bg-amber-50 dark:hover:bg-slate-700/60 transition-colors min-h-[44px]"
+            className="mt-4 inline-flex items-center justify-between px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-white dark:bg-[#14261e] border border-surface-200 dark:border-surface-800 text-gold-700 dark:text-gold-300 hover:bg-gold-50 dark:hover:bg-gold-950 transition-colors min-h-[44px]"
           >
-            <span>{locale === 'ar' ? 'استعراض أسعار كافة العيارات والبلدان' : 'Explore All Karats, Bullion & Countries'}</span>
-            <span aria-hidden="true">{locale === 'ar' ? '←' : '→'}</span>
+            <span>{isAr ? 'استعراض كافة العيارات والبلدان' : 'Explore All Karats & Currencies'}</span>
+            <span aria-hidden="true">{isAr ? '←' : '→'}</span>
           </Link>
+        </div>
+
+        {/* Card 3: Quick Jump Shortcuts */}
+        <div className="md:col-span-2 lg:col-span-1 rounded-2xl border-2 border-surface-200 dark:border-surface-800 bg-white dark:bg-[#0c1c15] p-6 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
+          <div>
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-surface-100 dark:bg-surface-800 text-slate-700 dark:text-slate-300">
+                {isAr ? 'اختصارات سريعة' : 'Quick Jump'}
+              </span>
+              <span className="text-[11px] font-semibold text-slate-400">
+                {isAr ? 'الأكثر طلباً' : 'High Frequency'}
+              </span>
+            </div>
+
+            <div className="space-y-2 my-2">
+              <Link
+                href={getToolUrl('age-calculator')}
+                className="flex items-center justify-between p-2.5 rounded-xl bg-surface-50 dark:bg-surface-900/60 hover:bg-brand-50/60 dark:hover:bg-brand-950/40 text-xs font-bold text-slate-800 dark:text-slate-200 transition-colors"
+              >
+                <span className="flex items-center gap-2">
+                  <span>🎂</span>
+                  <span>{isAr ? 'احسب عمرك بالهجري والميلادي' : 'Calculate Exact Age'}</span>
+                </span>
+                <span className="text-brand-700 dark:text-emerald-400">←</span>
+              </Link>
+
+              <Link
+                href={getToolUrl('end-of-service')}
+                className="flex items-center justify-between p-2.5 rounded-xl bg-surface-50 dark:bg-surface-900/60 hover:bg-brand-50/60 dark:hover:bg-brand-950/40 text-xs font-bold text-slate-800 dark:text-slate-200 transition-colors"
+              >
+                <span className="flex items-center gap-2">
+                  <span>💼</span>
+                  <span>{isAr ? 'مكافأة نهاية الخدمة (السعودية والإمارات)' : 'End of Service Gratuity'}</span>
+                </span>
+                <span className="text-brand-700 dark:text-emerald-400">←</span>
+              </Link>
+
+              <Link
+                href={getToolUrl('zakat-calculator')}
+                className="flex items-center justify-between p-2.5 rounded-xl bg-surface-50 dark:bg-surface-900/60 hover:bg-brand-50/60 dark:hover:bg-brand-950/40 text-xs font-bold text-slate-800 dark:text-slate-200 transition-colors"
+              >
+                <span className="flex items-center gap-2">
+                  <span>⚖️</span>
+                  <span>{isAr ? 'حاسبة الزكاة مع أنصبة اليوم' : 'Zakat with Live Nisab'}</span>
+                </span>
+                <span className="text-brand-700 dark:text-emerald-400">←</span>
+              </Link>
+            </div>
+          </div>
+
+          <div className="mt-3 text-[11px] text-slate-500 dark:text-slate-400 flex items-center justify-between border-t border-surface-100 dark:border-surface-800 pt-2.5">
+            <span>{isAr ? '🔒 خصوصية 100% داخل جهازك' : '🔒 100% Client-side execution'}</span>
+            <span className="text-gold-600 font-semibold">{isAr ? 'مجاني تماماً' : 'Free Forever'}</span>
+          </div>
         </div>
       </section>
 
-      {/* Ad slot below Hero */}
+      {/* Ad slot #1 below Daily Pulse */}
       <AdSlot minHeight={90} />
 
-      {/* Categories and Tools Grid */}
-      <div className="space-y-14">
+      {/* 3. Categorized Tools Directory */}
+      <div className="space-y-16">
         {(['dates', 'money', 'health'] as const).map((categoryKey) => {
           const categoryTools = groupedTools[categoryKey];
           if (categoryTools.length === 0) return null;
 
+          const categoryIcons = {
+            dates: '📅',
+            money: '💰',
+            health: '🩺',
+          };
+
           return (
-            <section key={categoryKey} id={categoryKey} className="scroll-mt-24 space-y-5">
-              <div className="border-b border-slate-200 dark:border-slate-800 pb-3 flex items-center justify-between">
-                <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2.5">
-                  <span className="w-2.5 h-6 rounded-full bg-brand-600"></span>
-                  <span>{getCategoryTitle(categoryKey)}</span>
-                </h2>
-                <span className="text-xs font-semibold text-slate-400 dark:text-slate-500">
-                  {categoryTools.length} {locale === 'ar' ? 'حاسبات متخصصة' : 'calculators'}
+            <section key={categoryKey} id={categoryKey} className="scroll-mt-24 space-y-6">
+              <div className="border-b border-surface-200 dark:border-surface-800 pb-3 flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <span className="text-2xl">{categoryIcons[categoryKey]}</span>
+                  <div>
+                    <h2 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-slate-100">
+                      {getCategoryTitle(categoryKey)}
+                    </h2>
+                  </div>
+                </div>
+                <span className="text-xs font-bold px-3 py-1 rounded-full bg-surface-100 dark:bg-surface-800 text-slate-600 dark:text-slate-400">
+                  {categoryTools.length} {isAr ? 'أدوات وحاسبات' : 'calculators'}
                 </span>
               </div>
 
@@ -376,28 +446,28 @@ export const HomePage: React.FC<HomePageProps> = ({ locale }) => {
                     <Link
                       key={tool.slug}
                       href={getToolUrl(tool.slug)}
-                      className="group flex flex-col justify-between p-6 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md hover:border-brand-500 dark:hover:border-brand-500 transition-all min-h-[160px]"
+                      className="group flex flex-col justify-between p-6 bg-white dark:bg-[#0c1c15] rounded-2xl border-2 border-surface-200/90 dark:border-surface-800 hover:border-brand-700 dark:hover:border-emerald-500 shadow-sm hover:shadow-md transition-all min-h-[180px]"
                     >
                       <div>
                         <div className="flex items-center justify-between mb-4">
-                          <div className="w-11 h-11 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                          <div className="w-12 h-12 rounded-xl bg-surface-100 dark:bg-[#14261e] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
                             {renderToolIcon(tool.slug)}
                           </div>
-                          <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-brand-50 text-brand-800 dark:bg-brand-950/60 dark:text-brand-300 border border-brand-100 dark:border-brand-900/40">
+                          <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-brand-50 text-brand-900 dark:bg-emerald-950/60 dark:text-emerald-300 border border-brand-100 dark:border-brand-900/40">
                             {toolI18n?.badge || tool.category}
                           </span>
                         </div>
-                        <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
+                        <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2 group-hover:text-brand-800 dark:group-hover:text-emerald-300 transition-colors">
                           {toolI18n?.title || tool.name[locale]}
                         </h3>
-                        <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 line-clamp-2 leading-relaxed">
+                        <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 line-clamp-2 leading-relaxed">
                           {toolI18n?.description || tool.description[locale]}
                         </p>
                       </div>
 
-                      <div className="pt-4 mt-2 border-t border-slate-100 dark:border-slate-800/60 flex items-center justify-between text-xs font-bold text-brand-700 dark:text-brand-400 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform">
-                        <span>{locale === 'ar' ? 'استخدم الحاسبة الآن' : 'Launch calculator'}</span>
-                        <span aria-hidden="true">{locale === 'ar' ? '←' : '→'}</span>
+                      <div className="pt-4 mt-3 border-t border-surface-100 dark:border-surface-800/80 flex items-center justify-between text-xs font-bold text-brand-800 dark:text-emerald-400 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform">
+                        <span>{isAr ? 'ابدأ الحساب الآن' : 'Launch calculator'}</span>
+                        <span aria-hidden="true">{isAr ? '←' : '→'}</span>
                       </div>
                     </Link>
                   );
@@ -408,63 +478,86 @@ export const HomePage: React.FC<HomePageProps> = ({ locale }) => {
         })}
       </div>
 
-      {/* Brand Identity & Zetawala Parent Block */}
+      {/* 4. Why Hasiba / Guarantees Strip (Humanized Trust, zero AI fluff, zero Zetawala spam) */}
       <section
-        aria-label={locale === 'ar' ? 'عن شبكة زيتاوالا' : 'About Zetawala Network'}
-        className="rounded-3xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-900 dark:to-slate-950 p-6 sm:p-8 shadow-sm"
+        aria-label={isAr ? 'لماذا تختار حاسبة؟' : 'Why Choose Hasiba'}
+        className="rounded-3xl border-2 border-surface-200 dark:border-surface-800 bg-surface-50 dark:bg-[#0c1c15] p-6 sm:p-10 space-y-6"
       >
-        <div className="flex flex-col md:flex-row items-center gap-6 justify-between">
-          <div className="flex flex-col sm:flex-row items-center sm:items-start gap-5 text-center sm:text-start">
-            <div className="relative w-16 h-16 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-2 flex items-center justify-center shrink-0 shadow-sm">
-              <Image
-                src={siteConfig.parent.logo}
-                alt={siteConfig.parent.name[locale]}
-                width={56}
-                height={56}
-                className="object-contain"
-              />
+        <div className="text-center max-w-2xl mx-auto space-y-2">
+          <span className="text-xs font-bold uppercase tracking-wider text-gold-600 dark:text-gold-400">
+            {isAr ? 'دقة وموثوقية وخصوصية' : 'Precision, Trust & Privacy'}
+          </span>
+          <h2 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white">
+            {isAr ? 'لماذا يعتمد مئات الآلاف على حاسبة يومياً؟' : 'Why Users Across the Region Rely on Hasiba'}
+          </h2>
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+            {isAr
+              ? 'صُممت منصة حاسبة لتكون البديل الأسرع والأكثر أماناً وموثوقية في العالم العربي للأدوات الحسابية اليومية.'
+              : 'Designed to be the fastest, safest, and most reliable Arabic calculator portal with zero data retention.'}
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
+          {/* Pillar 1 */}
+          <div className="bg-white dark:bg-[#14261e] p-6 rounded-2xl border border-surface-200 dark:border-surface-800 space-y-3">
+            <div className="w-10 h-10 rounded-xl bg-brand-50 dark:bg-emerald-950 flex items-center justify-center text-xl">
+              🔒
             </div>
-            <div className="space-y-2 max-w-2xl">
-              <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full text-xs font-bold bg-brand-50 text-brand-800 dark:bg-brand-950 dark:text-brand-300 border border-brand-200 dark:border-brand-800">
-                <span>{siteConfig.parent.badgeText[locale]}</span>
-              </div>
-              <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-slate-100">
-                {locale === 'ar'
-                  ? 'حاسبة هي جزء من شبكة زيتاوالا للأدوات المجانية'
-                  : 'Hasiba is part of the Zetawala Free Utilities Network'}
-              </h2>
-              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                {locale === 'ar'
-                  ? 'تلتزم شبكة زيتاوالا (Zetawala) بتقديم أدوات رقمية وحسابية مجانية بالكامل، عالية السرعة، وبلا تسجيل دخول أو جمع للبيانات الشخصية، لخدمة الملايين من المستخدمين في المملكة العربية السعودية، والإمارات، ومصر، وسائر العالم العربي.'
-                  : 'Zetawala is dedicated to developing zero-registration, privacy-first, ultra-fast online utilities that empower millions of users across Saudi Arabia, UAE, Egypt, and the wider Arab diaspora.'}
-              </p>
-            </div>
+            <h3 className="text-base font-bold text-slate-900 dark:text-white">
+              {isAr ? 'خصوصية تامة 100% داخل جهازك' : '100% Client-Side Privacy'}
+            </h3>
+            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+              {isAr
+                ? 'تتم جميع العمليات الحسابية محلياً داخل متصفحك. لا نقوم بحفظ أو إرسال تواريخ ميلادك أو أرقام رواتبك أو مدخراتك إلى أي خادم خارجي.'
+                : 'All mathematical processing executes locally in your browser. We never transmit or store your birthdates, salaries, or financial records.'}
+            </p>
           </div>
 
-          <a
-            href={siteConfig.parent.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center justify-center px-6 py-3 rounded-xl font-bold text-sm bg-brand-700 hover:bg-brand-800 text-white transition-all shadow-sm active:scale-[0.99] shrink-0 min-h-[44px]"
-          >
-            {siteConfig.parent.visitText[locale]}
-          </a>
+          {/* Pillar 2 */}
+          <div className="bg-white dark:bg-[#14261e] p-6 rounded-2xl border border-surface-200 dark:border-surface-800 space-y-3">
+            <div className="w-10 h-10 rounded-xl bg-gold-50 dark:bg-gold-950 flex items-center justify-center text-xl">
+              ⚖️
+            </div>
+            <h3 className="text-base font-bold text-slate-900 dark:text-white">
+              {isAr ? 'معايير رسمية وأنظمة معتمدة' : 'Officially Audited Standards'}
+            </h3>
+            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+              {isAr
+                ? 'معادلات الحساب معتمدة وفق لوائح وزارة الموارد البشرية السعودية وقانون العمل الإماراتي 2021، وتقويم أم القرى، وضوابط الفقه لأنصبة الزكاة.'
+                : 'Calculations follow the Saudi Labor Law, UAE Decree No. 33 of 2021, the official Umm al-Qura calendar, and recognized Fiqh Zakat standards.'}
+            </p>
+          </div>
+
+          {/* Pillar 3 */}
+          <div className="bg-white dark:bg-[#14261e] p-6 rounded-2xl border border-surface-200 dark:border-surface-800 space-y-3">
+            <div className="w-10 h-10 rounded-xl bg-surface-100 dark:bg-surface-800 flex items-center justify-center text-xl">
+              ⚡
+            </div>
+            <h3 className="text-base font-bold text-slate-900 dark:text-white">
+              {isAr ? 'مجاني بالكامل وبلا تسجيل' : '100% Free & Instant Access'}
+            </h3>
+            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+              {isAr
+                ? 'لا حاجة لإنشاء حساب أو إدخال بريد إلكتروني أو بطاقة دفع. كافة الأدوات متاحة فوراً وبسرعة فائقة ومتجاوبة على كافة الهواتف والأجهزة.'
+                : 'No registration, subscriptions, or credit card required. Clean, instant, and mobile-first design with large tap targets for all devices.'}
+            </p>
+          </div>
         </div>
       </section>
 
-      {/* 5 FAQ items about the site */}
+      {/* 5. Site FAQs */}
       <section className="space-y-6">
         <FaqAccordion
           items={faqItems}
           title={
-            locale === 'ar'
-              ? 'الأسئلة الشائعة حول موقع حاسبة'
+            isAr
+              ? 'الأسئلة الأكثر شيوعاً حول منصة حاسبة'
               : 'Frequently Asked Questions about Hasiba'
           }
         />
       </section>
 
-      {/* Bottom Ad slot */}
+      {/* Ad slot #2 at bottom */}
       <AdSlot minHeight={250} />
     </div>
   );

@@ -10,18 +10,43 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        // Deep Arabian Emerald / Islamic Teal from Hasiba Logo (#073b2f / #0a4d3c)
         brand: {
-          50: '#f0fdf7',
-          100: '#dcfceb',
-          200: '#bbf7d6',
-          300: '#86efb8',
-          400: '#34d399',
-          500: '#10b981',
-          600: '#0e834b',
-          700: '#0b663b',
-          800: '#074b2c',
-          900: '#083c30',
-          950: '#04271f',
+          50: '#f0f8f4',
+          100: '#d9ede3',
+          200: '#b5ddc9',
+          300: '#87c4a8',
+          400: '#4e9c7c',
+          500: '#237a59',
+          600: '#146548',
+          700: '#0d533b',
+          800: '#0a4d3c', // Core Logo Emerald
+          900: '#073b2f', // Deepest Logo Teal
+          950: '#03211a',
+        },
+        // Warm Arabian Desert Gold from Hasiba Logo (#c59b4c / #aa8036)
+        gold: {
+          50: '#fbf8ee',
+          100: '#f6eed0',
+          200: '#eddc9f',
+          300: '#e2c66c',
+          400: '#d4af37',
+          500: '#c59b4c', // Logo Primary Gold Accent
+          600: '#aa8036', // Logo Deep Gold
+          700: '#8a6428',
+          800: '#704f24',
+          900: '#5c4122',
+          950: '#34220e',
+        },
+        // Warm surface neutrals
+        surface: {
+          50: '#fbfbf8',
+          100: '#f5f5f0',
+          200: '#eaeae2',
+          300: '#dcdcd0',
+          800: '#15241d',
+          900: '#0c1c15',
+          950: '#07150f',
         },
       },
       fontFamily: {

@@ -44,8 +44,8 @@ export const ContentPageLayout: React.FC<ContentPageLayoutProps> = ({
               {badge}
             </span>
           ) : (
-            <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
-              {siteConfig.parent.badgeText[locale]}
+            <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-surface-100 text-slate-700 dark:bg-surface-800 dark:text-slate-300 border border-surface-200 dark:border-surface-800">
+              {siteConfig.name[locale]}
             </span>
           )}
 

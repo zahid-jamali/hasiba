@@ -39,13 +39,13 @@ export default function EnglishAboutPage() {
 
         <Card variant="muted" className="my-6">
           <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4">
-            <div className="relative w-12 h-12 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-1 flex items-center justify-center shrink-0">
+            <div className="relative w-14 h-14 flex items-center justify-center shrink-0">
               <Image
                 src={siteConfig.parent.logo}
                 alt="Zetawala Logo"
-                width={40}
-                height={40}
-                className="object-contain"
+                width={56}
+                height={56}
+                className="w-full h-full object-contain"
               />
             </div>
             <div className="space-y-1 text-center sm:text-start">

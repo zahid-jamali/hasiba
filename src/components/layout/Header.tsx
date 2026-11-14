@@ -46,66 +46,55 @@ export const Header: React.FC<HeaderProps> = ({
   }
 
   const categories = [
-    { key: 'dates' as const, label: t.categories.dates },
-    { key: 'money' as const, label: t.categories.money },
-    { key: 'health' as const, label: t.categories.health },
+    { key: 'dates' as const, label: t.categories.dates, icon: '📅' },
+    { key: 'money' as const, label: t.categories.money, icon: '💰' },
+    { key: 'health' as const, label: t.categories.health, icon: '🩺' },
   ];
 
   return (
-    <header className="w-full border-b border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md sticky top-0 z-50 transition-colors">
+    <header className="w-full border-b border-surface-200 dark:border-surface-800 bg-white/95 dark:bg-[#07150f]/95 backdrop-blur-md sticky top-0 z-50 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-3">
-        {/* Start side: Logo + Zetawala desktop badge */}
+        {/* Start side: Hasiba Logo & Brand Name */}
         <div className="flex items-center gap-3">
           <Link
             href={homePath}
-            className="flex items-center gap-2.5 group min-h-[44px] min-w-[44px]"
+            className="flex items-center gap-3 group min-h-[44px] min-w-[44px] py-1"
             aria-label={`${siteConfig.name[locale]} - ${t.common.home}`}
           >
-            <div className="relative w-8 h-8 sm:w-9 sm:h-9 overflow-hidden rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 flex items-center justify-center shrink-0">
+            <div className="relative w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center shrink-0">
               <Image
                 src={siteConfig.logo}
                 alt=""
-                width={36}
-                height={36}
-                className="object-contain"
+                width={40}
+                height={40}
+                className="w-full h-full object-contain group-hover:scale-105 transition-transform"
                 priority
               />
             </div>
-            <span className="text-xl font-bold tracking-tight text-slate-900 dark:text-slate-100 group-hover:text-brand-600 transition-colors">
-              {siteConfig.name[locale]}
-            </span>
+            <div className="flex flex-col">
+              <span className="text-xl sm:text-2xl font-black tracking-tight text-brand-900 dark:text-emerald-100 group-hover:text-brand-700 dark:group-hover:text-emerald-300 transition-colors leading-none">
+                {siteConfig.name[locale]}
+              </span>
+              <span className="text-[10px] font-semibold text-gold-600 dark:text-gold-400 tracking-wide mt-1">
+                {locale === 'ar' ? 'حاسبات دقيقة ومجانية' : 'Smart Daily Calculators'}
+              </span>
+            </div>
           </Link>
-
-          {/* Small Zetawala badge on desktop */}
-          <a
-            href={siteConfig.parent.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden md:inline-flex items-center gap-1.5 ms-2 px-2.5 py-1 rounded-full border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 text-xs font-semibold text-slate-600 dark:text-slate-400 hover:border-brand-500 hover:text-brand-700 transition-colors"
-          >
-            <Image
-              src={siteConfig.parent.logo}
-              alt=""
-              width={14}
-              height={14}
-              className="object-contain shrink-0"
-            />
-            <span>{siteConfig.parent.badgeText[locale]}</span>
-          </a>
         </div>
 
         {/* Center: Category Navigation on desktop */}
         <nav
-          className="hidden md:flex items-center gap-1 lg:gap-2"
+          className="hidden md:flex items-center gap-1.5 lg:gap-2"
           aria-label={t.common.categories}
         >
           {categories.map((cat) => (
             <Link
               key={cat.key}
               href={`${homePath}#${cat.key}`}
-              className="px-3 py-2 text-sm font-semibold rounded-lg text-slate-700 dark:text-slate-300 hover:text-brand-700 dark:hover:text-brand-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors min-h-[44px] flex items-center"
+              className="px-3.5 py-2 text-sm font-bold rounded-xl text-slate-700 dark:text-slate-200 hover:text-brand-800 dark:hover:text-emerald-300 hover:bg-brand-50/70 dark:hover:bg-brand-950/40 transition-all min-h-[44px] flex items-center gap-1.5"
             >
-              {cat.label}
+              <span className="text-sm opacity-80" aria-hidden="true">{cat.icon}</span>
+              <span>{cat.label}</span>
             </Link>
           ))}
         </nav>
@@ -115,10 +104,10 @@ export const Header: React.FC<HeaderProps> = ({
           {/* Language Switcher */}
           <Link
             href={targetLanguagePath}
-            className="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 min-h-[44px] rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 transition-all select-none"
+            className="inline-flex items-center justify-center gap-1.5 px-3.5 py-1.5 min-h-[44px] rounded-xl border border-surface-200 dark:border-surface-800 bg-surface-50 dark:bg-surface-900/80 text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-100 hover:border-gold-500 hover:text-gold-700 dark:hover:text-gold-400 hover:bg-gold-50/50 dark:hover:bg-gold-950/30 transition-all select-none shadow-sm"
             aria-label={`Switch to ${t.common.switchLanguageName}`}
           >
-            <span aria-hidden="true">🌐</span>
+            <span aria-hidden="true" className="text-sm">🌐</span>
             <span>{t.common.languageSwitchLabel}</span>
           </Link>
 
@@ -126,7 +115,7 @@ export const Header: React.FC<HeaderProps> = ({
           <button
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden inline-flex items-center justify-center p-2 rounded-xl text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800 min-h-[44px] min-w-[44px]"
+            className="md:hidden inline-flex items-center justify-center p-2 rounded-xl text-slate-700 dark:text-slate-300 hover:text-brand-800 dark:hover:text-white hover:bg-surface-100 dark:hover:bg-surface-900 min-h-[44px] min-w-[44px]"
             aria-expanded={mobileMenuOpen}
             aria-label="Toggle navigation menu"
           >
@@ -155,36 +144,58 @@ export const Header: React.FC<HeaderProps> = ({
 
       {/* Mobile Menu Dropdown */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-4 py-4 space-y-2">
-          <div className="font-bold text-xs uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-2">
+        <div className="md:hidden border-t border-surface-200 dark:border-surface-800 bg-white dark:bg-[#0c1c15] px-4 py-5 space-y-4 shadow-lg animate-in fade-in slide-in-from-top-2 duration-150">
+          <div className="font-bold text-xs uppercase tracking-wider text-slate-400 dark:text-slate-500 px-2">
             {t.common.categories}
           </div>
-          {categories.map((cat) => (
-            <Link
-              key={cat.key}
-              href={`${homePath}#${cat.key}`}
-              onClick={() => setMobileMenuOpen(false)}
-              className="block px-3 py-2.5 rounded-lg text-base font-semibold text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 min-h-[44px]"
-            >
-              {cat.label}
-            </Link>
-          ))}
-          <div className="pt-3 border-t border-slate-100 dark:border-slate-800">
-            <a
-              href={siteConfig.parent.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-brand-600"
-            >
-              <Image
-                src={siteConfig.parent.logo}
-                alt=""
-                width={16}
-                height={16}
-                className="object-contain shrink-0"
-              />
-              <span>{siteConfig.parent.description[locale]}</span>
-            </a>
+          <div className="grid grid-cols-1 gap-1">
+            {categories.map((cat) => (
+              <Link
+                key={cat.key}
+                href={`${homePath}#${cat.key}`}
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-base font-bold text-slate-800 dark:text-slate-200 hover:bg-brand-50 dark:hover:bg-brand-950/50 hover:text-brand-800 dark:hover:text-emerald-300 min-h-[44px] transition-colors"
+              >
+                <span className="text-lg">{cat.icon}</span>
+                <span>{cat.label}</span>
+              </Link>
+            ))}
+          </div>
+
+          <div className="pt-3 border-t border-surface-200 dark:border-surface-800/80">
+            <div className="text-xs font-semibold text-slate-400 dark:text-slate-500 px-2 mb-2">
+              {locale === 'ar' ? 'أشهر الأدوات' : 'Popular Tools'}
+            </div>
+            <div className="grid grid-cols-2 gap-2 text-xs font-bold">
+              <Link
+                href={locale === 'en' ? '/en/age-calculator/' : '/age-calculator/'}
+                onClick={() => setMobileMenuOpen(false)}
+                className="p-2.5 rounded-lg bg-surface-50 dark:bg-surface-900/60 text-slate-700 dark:text-slate-300 hover:text-brand-700 dark:hover:text-emerald-400 block"
+              >
+                {locale === 'ar' ? '🎂 حساب العمر' : '🎂 Age Calculator'}
+              </Link>
+              <Link
+                href={locale === 'en' ? '/en/gold-price/' : '/gold-price/'}
+                onClick={() => setMobileMenuOpen(false)}
+                className="p-2.5 rounded-lg bg-surface-50 dark:bg-surface-900/60 text-slate-700 dark:text-slate-300 hover:text-brand-700 dark:hover:text-emerald-400 block"
+              >
+                {locale === 'ar' ? '🪙 أسعار الذهب' : '🪙 Gold Prices'}
+              </Link>
+              <Link
+                href={locale === 'en' ? '/en/end-of-service/' : '/end-of-service/'}
+                onClick={() => setMobileMenuOpen(false)}
+                className="p-2.5 rounded-lg bg-surface-50 dark:bg-surface-900/60 text-slate-700 dark:text-slate-300 hover:text-brand-700 dark:hover:text-emerald-400 block"
+              >
+                {locale === 'ar' ? '💼 نهاية الخدمة' : '💼 Gratuity'}
+              </Link>
+              <Link
+                href={locale === 'en' ? '/en/zakat-calculator/' : '/zakat-calculator/'}
+                onClick={() => setMobileMenuOpen(false)}
+                className="p-2.5 rounded-lg bg-surface-50 dark:bg-surface-900/60 text-slate-700 dark:text-slate-300 hover:text-brand-700 dark:hover:text-emerald-400 block"
+              >
+                {locale === 'ar' ? '⚖️ حاسبة الزكاة' : '⚖️ Zakat Calculator'}
+              </Link>
+            </div>
           </div>
         </div>
       )}

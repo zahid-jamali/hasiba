@@ -31,7 +31,7 @@ export default function ArabicRootLayout({
 }) {
   return (
     <html lang="ar" dir="rtl" className={ibmPlexArabic.variable}>
-      <body className="antialiased font-sans min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors">
+      <body className="antialiased font-sans min-h-screen flex flex-col bg-[#fafaf7] dark:bg-[#07150f] text-slate-900 dark:text-slate-100 transition-colors">
         <SiteJsonLd locale="ar" />
         <DigitsProvider locale="ar">
           <Header locale="ar" />

@@ -19,7 +19,7 @@ export default function GlobalNotFound() {
         <title>404 - الصفحة غير موجودة · Page Not Found | Hasiba</title>
         <meta name="robots" content="noindex, nofollow" />
       </head>
-      <body className="antialiased font-sans min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100">
+      <body className="antialiased font-sans min-h-screen flex flex-col bg-[#fafaf7] dark:bg-[#07150f] text-slate-900 dark:text-slate-100">
         <main className="flex-1 flex flex-col items-center justify-center py-16 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto w-full text-center space-y-8">
           <div className="space-y-4">
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-brand-50 text-brand-700 dark:bg-brand-950 dark:text-brand-300 font-black text-2xl border border-brand-200 dark:border-brand-800">

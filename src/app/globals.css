@@ -4,18 +4,18 @@
 
 @layer base {
   :root {
-    --background: #f8fafc;
-    --foreground: #0f172a;
+    --background: #fbfbf8;
+    --foreground: #101c16;
     --card-bg: #ffffff;
-    --card-border: #e2e8f0;
+    --card-border: #e6eae3;
   }
 
   @media (prefers-color-scheme: dark) {
     :root {
-      --background: #0a0f1d;
-      --foreground: #f8fafc;
-      --card-bg: #111827;
-      --card-border: #1f2937;
+      --background: #07150f;
+      --foreground: #f4f6f4;
+      --card-bg: #0c1c15;
+      --card-border: #183327;
     }
   }
 
@@ -35,9 +35,9 @@
     width: 100%;
   }
 
-  /* Accessible focus indicators */
+  /* Accessible focus indicators with Brand Emerald */
   :focus-visible {
-    outline: 2px solid #0e834b;
+    outline: 2px solid #0a4d3c;
     outline-offset: 2px;
   }
 }
